@@ -1,0 +1,82 @@
+<div class="card container mt-5">
+    <div class="card-body">
+        <h4 class="text-center">Manage product</h4>
+        <br>
+        <hr>
+        <div class="alert alert-success" role="alert" data-auto-dismiss="1000" *ngIf="alertMessage">
+            {{alertMessage}}
+        </div>
+        <br>
+        <div class="row">
+            <!-- add product form -->
+            <div class="col-md-6 p-3">
+                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="productid">Product id</label>
+                        <input type="text" formControlName="productid" name="productid" class="form-control"
+                            id="productid">
+                        <small class="py-2 text-danger"
+                            *ngIf="productForm.get('productid')?.invalid && productForm.get('productid')?.touched">Product
+                            id is not valid</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="productname">Product name</label>
+                        <input type="text" formControlName="productname" name="productname" class="form-control"
+                            id="productname">
+                        <small class="py-2 text-danger"
+                            *ngIf="productForm.get('productname')?.invalid && productForm.get('productname')?.touched">Product
+                            name is not valid</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="productprice">Product price</label>
+                        <input type="number" formControlName="productprice" name="productprice" class="form-control"
+                            id="productprice">
+                        <small class="py-2 text-danger"
+                            *ngIf="productForm.get('productprice')?.invalid && productForm.get('productprice')?.touched">Product
+                            price is not valid</small>
+                    </div>
+                    <br>
+                    <p>
+                        <button type="submit" [disabled]="productForm.invalid" class="btn btn-primary m-1">{{editMode?
+                            'Update product':'Add product'}}</button>
+                    </p>
+                </form>
+            </div>
+
+            <!-- display product -->
+            <div class="col-md-6 p-3">
+                <h4 class="text-center"></h4>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container class="spinner-grow text-center" role="status" *ngIf="!isLoading">
+                            <tr *ngFor="let product of products, index as i">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{product.productid}}</td>
+                                <td>{{product.productname|titlecase}}</td>
+                                <td>{{product.productprice|currency}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm m-1"
+                                        (click)="onDeleteProduct(product.productkey)">Delete</button>
+                                    <button class="btn btn-success btn-sm m-1"
+                                        (click)="onEditProduct(product.productkey, i)" >Edit</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <div class="spinner-border mx-auto" role="status" *ngIf="isLoading">
+                            <span class="sr-only"></span>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
