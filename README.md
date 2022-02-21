@@ -1,3 +1,7 @@
+
+
+![Screenshot 2022-02-21 142048](https://user-images.githubusercontent.com/88138560/154917886-8bede2c1-7208-4e76-a5b3-09c972a92eb2.png)
+
 # AngularCrud
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.2.
